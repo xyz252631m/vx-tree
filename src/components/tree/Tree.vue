@@ -1,24 +1,22 @@
 <template>
   <ul>
-  	<li v-for="m in list"></li>
+    <li v-for="m in list" :key="m.id" @click="itemClick"></li>
   </ul>
 </template>
-
 <script>
-
 export default {
-  name: 'Tree',
-  data(){
-      return {
-          list:[]
-      }
+  name: "Tree",
+  data() {
+    return {
+      list: [],
+    };
   },
-  components: {
-    
-  }
-}
+  methods: {
+    itemClick() {},
+  },
+  components: {},
+};
 </script>
 
 <style>
-  
 </style>
