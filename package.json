@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "lib": "vue-cli-service build --target lib --name vxTree --dest lib index.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -13,7 +14,13 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
+    "less-loader": "^7.2.1",
+    "less": "^4.1.0",
     "vue-template-compiler": "^2.6.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xyz252631m/vx-tree.git"
   },
   "browserslist": [
     "> 1%",
