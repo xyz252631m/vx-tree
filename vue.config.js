@@ -2,6 +2,7 @@ module.exports = {
     devServer: {
         port:8088
     },
+    // publicPath: process.env.NODE_ENV === 'production' ? '/examples/' : '/',
     // publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
     // entry: process.env.NODE_ENV === 'dev'? path.resolve(__dirname, './src/main.js'): path.resolve(__dirname, './index.js'),
     // output: {
@@ -15,14 +16,19 @@ module.exports = {
     // externals: {
     //     vue: 'vue'
     // }
-    css: {
-        loaderOptions: {
-            less: {
-                lessOptions: {
-                    javascriptEnabled: true
-                }
-            }
-
+    pages: {
+        index: {
+            // page 的入口
+            entry: 'examples/main.js',
+            // 模板来源
+            template: 'public/index.html',
+            title: '示例',
+        },
+    },
+    configureWebpack: {
+        output: {
+            libraryExport: 'default'
         }
     },
+    productionSourceMap:false
 }
