@@ -8,6 +8,7 @@
                 @drop="drop($event,m)"
                 @dragover.prevent="dragover($event,m)"
                 @dragleave="dragleave($event,m)"
+                @dragend="dragend"
                 @contextmenu="contextmenu($event,m)"
 
             >
@@ -26,17 +27,17 @@
                      </span>
                         {{ m.name }}
                     </label>
-                    <span class="icon-op" @click.stop="showMoreMenu($event,m)"><i
-                        class="fa fa-fw fa-reorder"></i></span>
+                    <span class="icon-op"  @click.stop="showMoreMenu($event,m)">
+                        <i  class="fa fa-fw fa-ellipsis-v"></i>
+                    </span>
                 </a>
 
             </li>
         </ul>
     </div>
 </template>
-<style lang='less'>
-    @import "../tree/Tree.less";
-    @import "./DirectoryTree.less";
+<style lang='scss'>
+    @import "DirectoryTree";
 </style>
 <script>
 
@@ -116,38 +117,39 @@
             },
 
             dragend() {
+                this.drag.item = null;
                 this.clearDragBor();
             },
 
             dragover(e, m) {
-                this.drag.borItem = m;
-                let h = e.target.offsetHeight;
-                if (e.offsetY < h / 3) {
-                    this.drag.borCls = "bor-01";
-                    this.drag.borPos = 1;
-                } else if (e.offsetY > h / 3 * 2) {
-                    this.drag.borCls = "bor-03";
-                    this.drag.borPos = 3;
-                } else {
-                    this.drag.borCls = "bor-02";
-                    this.drag.borPos = 2;
+                let dragItem = this.drag.item;
+                if(dragItem) {
+                    this.drag.borItem = m;
+                    let h = e.target.offsetHeight;
+                    if (e.offsetY < h / 3) {
+                        this.drag.borCls = "bor-01";
+                        this.drag.borPos = 1;
+                    } else if (e.offsetY > h / 3 * 2) {
+                        this.drag.borCls = "bor-03";
+                        this.drag.borPos = 3;
+                    } else {
+                        this.drag.borCls = "bor-02";
+                        this.drag.borPos = 2;
+                    }
                 }
-
-                // console.log(e.offsetY)
-                //
-                // console.log(e)
             },
             dragleave(e, item) {
-                //
             },
             mouseleave() {
-                // console.log("mouseleave")
-                // this.drag.borItem = null;
             },
             drop(e, item) {
                 let dragItem = this.drag.item;
                 let position = this.drag.borPos;
-                this.$emit("on-drop", item, dragItem, position);
+                if(dragItem){
+                    this.$emit("on-drop", item, dragItem, position);
+                }
+
+
 
             },
             clearDragBor() {
@@ -156,7 +158,6 @@
                 this.drag.borPos = -1;
             },
             contextmenu(e, item) {
-                console.log("right")
                 let dragItem = this.drag.item;
                 this.drag.borItem = null;
                 this.drag.borCls = "";
