@@ -1,6 +1,7 @@
 module.exports = {
     devServer: {
-        port:8088
+        port:8088,
+        disableHostCheck: true
     },
     // publicPath: process.env.NODE_ENV === 'production' ? '/examples/' : '/',
     // publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
